@@ -80,6 +80,8 @@ select{
     border: 0px;
     border-radius: 3px;
     box-shadow: 0px 0px 4px hsl(0, 0%, 52%,0.3);
+    max-width: 160px;
+    min-height: 40px;
 }
 .back{
     color: hsl(0, 0%, 52%);
