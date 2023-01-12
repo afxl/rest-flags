@@ -147,13 +147,18 @@ const countryInfo = async function(data){
         alert(err)
     }
 } 
-document.addEventListener("keydown",el=>{
+document.addEventListener("keydown",async function(el){
     if(el.key=="Enter"){
+         document.querySelector(".loader").classList.remove("hidden");
+        console.log(document.querySelector(".loader"));
         document.querySelector(".home .row").classList.add("hidden");
         document.querySelector(".filter-flags").classList.remove("hidden");
         document.querySelector(".filter-flags .row").innerHTML = "";
-        search(document.querySelector("input").value)
-    }
+        setTimeout(() => {
+            document.querySelector(".loader").classList.add("hidden");
+            search(document.querySelector("input").value);
+        }, 1000);
+        }
 })
 const displayCountries=async function(node,data){
     node.insertAdjacentHTML(
@@ -171,12 +176,17 @@ const displayCountries=async function(node,data){
                         </div>`
     );
 }
-document.querySelector("select").addEventListener("change",el=>{
-    const data=el.target.value;
-    document.querySelector(".home .row").classList.add("hidden")
-    document.querySelector(".filter-flags").classList.remove("hidden");
-    document.querySelector(".filter-flags .row").innerHTML="";
-    filterCountries(data)
+document.querySelector("select").addEventListener("change", async function(el){
+   document.querySelector(".home .row").classList.add("hidden");
+   document.querySelector(".filter-flags").classList.remove("hidden");
+   document.querySelector(".loader").classList.remove("hidden");
+   document.querySelector(".filter-flags .row").innerHTML = "";
+    await setTimeout(() => {
+        const data = el.target.value;
+        filterCountries(data);
+    }, 1000);
+    console.log(a);
+     document.querySelector(".loader").classList.add("hidden");
 })
 document.querySelector(".back").addEventListener("click",el=>{
     document.querySelector(".home").classList.remove("hidden");
@@ -186,10 +196,16 @@ document.querySelectorAll(".home").forEach(el=>{
     el.addEventListener("click",async function(e){
         if(e.target.closest(".country-card")){
             document.querySelector(".home").classList.add("hidden");
+            document.querySelector(".loader").classList.remove("hidden");
             document.querySelector(".country-data").innerHTML = "";
-            document.querySelector(".specific").classList.remove("hidden");
+            
             const data = await e.target.closest(".country-card").dataset.country;
-            countryInfo(data)
+            setTimeout(() => {
+                document.querySelector(".specific").classList.remove("hidden");
+                document.querySelector(".loader").classList.add("hidden");
+                countryInfo(data);
+            
+            }, 1000);
         }
     })
 })
