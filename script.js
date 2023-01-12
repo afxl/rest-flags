@@ -150,7 +150,6 @@ const countryInfo = async function(data){
 document.addEventListener("keydown",async function(el){
     if(el.key=="Enter"){
          document.querySelector(".loader").classList.remove("hidden");
-        console.log(document.querySelector(".loader"));
         document.querySelector(".home .row").classList.add("hidden");
         document.querySelector(".filter-flags").classList.remove("hidden");
         document.querySelector(".filter-flags .row").innerHTML = "";
@@ -183,10 +182,9 @@ document.querySelector("select").addEventListener("change", async function(el){
    document.querySelector(".filter-flags .row").innerHTML = "";
     await setTimeout(() => {
         const data = el.target.value;
+     document.querySelector(".loader").classList.add("hidden");
         filterCountries(data);
     }, 1000);
-    console.log(a);
-     document.querySelector(".loader").classList.add("hidden");
 })
 document.querySelector(".back").addEventListener("click",el=>{
     document.querySelector(".home").classList.remove("hidden");
